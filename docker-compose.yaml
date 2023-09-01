@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   web:
-    image: "trainwithshubham/node-app-test-new:latest"
+    container_name: node_app
+    build: .
     ports:
       - "8000:8000"
