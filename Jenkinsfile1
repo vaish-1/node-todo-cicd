@@ -1,0 +1,30 @@
+pipeline {
+    agent { label 'dev-agent' }
+    
+    stages {
+        stage('Code'){
+            steps{
+                git url: 'https://github.com/PINKU9627/node-todo-cicd.git', branch: 'master'
+            }
+        }
+        stage('Build & Test'){
+            steps{
+                sh 'docker image build -t abhay10371/node-todo-app-cicd:latest .'
+            }
+        }
+        stage('Login & Push Image'){
+            steps{
+                echo "Login & push image to docker hub"
+                withCredentials([usernamePassword(credentialsId:'dockerHub',usernameVariable:'dockerHubUser',passwordVariable:'dockerHubPass')]){
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                    sh 'docker image push abhay10371/node-todo-app-cicd:latest'
+                }
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh 'docker-compose down && docker-compose up -d --no-deps --build web'
+            }
+        }
+    }
+}
