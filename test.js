@@ -31,7 +31,7 @@ describe("Test2", () => {
 	console.log( "executes before every test" );
 	});
 	
-	it("Is returning 4 when adding 2 + 3", () => {
+	it("Is returning 5 when adding 2 + 3", () => {
 	assert.equal(2 + 3, 5);
 	});
 
