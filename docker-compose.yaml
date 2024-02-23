@@ -2,6 +2,6 @@ version: '3.9'
 
 services:
   web:
-    image: abhay10371/node-todo-app-cicd:latest
+    image: abhay10371/node-todo-app-cicd:v1
     ports:
       - "8000:8000"
